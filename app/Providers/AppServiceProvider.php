@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Contracts\TransactionInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,5 +25,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(TransactionInterface::class, function () {
             return (new \App\Services\TransactionCodeGenerator());
         });
+
+        // force https scheme
+        URL::forceScheme('https');
     }
 }
